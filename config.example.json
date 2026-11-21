@@ -1,0 +1,53 @@
+{
+  "timezone": "UTC",
+  "ideas": {
+    "topics": ["creative-coding", "generative-art", "motion-design", "threejs", "webgl", "ai-video"],
+    "keywords": ["3d", "animation", "video", "shader", "generative", "pixel", "render", "visual", "canvas", "webgl", "threejs", "interactive"],
+    "reject_keywords": ["crack", "keygen", "license key", "free download", "bot account", "follower"],
+    "allowed_licenses": ["MIT", "Apache-2.0", "BSD-3-Clause", "ISC", "0BSD"],
+    "min_stars": 50,
+    "lookback_days": 30,
+    "min_score": 60
+  },
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "min_seconds": 12,
+    "max_seconds": 60,
+    "record_seconds": 20,
+    "accent": "FF3B3B",
+    "font": null
+  },
+  "qa": {
+    "max_freeze_ratio": 0.6
+  },
+  "voice": {
+    "voice_id_env": "ELEVENLABS_VOICE_ID",
+    "model_id": "eleven_multilingual_v2"
+  },
+  "draft": {
+    "model": "claude-sonnet-5-5"
+  },
+  "schedule": {
+    "slots": ["09:00", "13:00", "18:00", "21:00"],
+    "per_day": 3,
+    "days_ahead": 3
+  },
+  "autopilot": {
+    "auto_publish": false
+  },
+  "publish": {
+    "instagram": true,
+    "threads": false,
+    "upload": "r2",
+    "public_base_url": "https://media.example.com",
+    "graph_version": "v21.0"
+  },
+  "comments": {
+    "reply_template": "Thanks for commenting! Here is the link: {link}"
+  },
+  "analytics": {
+    "metrics": ["plays", "reach", "likes", "comments", "saved", "shares"]
+  }
+}

@@ -1,0 +1,49 @@
+name: engage
+
+# Every 30 minutes: reply to keyword comments. Daily: pull reel analytics.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+    - cron: "15 23 * * *"   # analytics snapshot, 23:15 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: state
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  engage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Reply to keyword comments
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: python3 cli.py replies
+
+      - name: Analytics snapshot (daily run only)
+        if: github.event.schedule == '15 23 * * *' || github.event_name == 'workflow_dispatch'
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          python3 cli.py analytics pull
+          python3 cli.py analytics report
+
+      - name: Commit state
+        run: |
+          git config user.name "social-autopilot[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state
+          git diff --cached --quiet || git commit -m "chore: engagement update"
+          git pull --rebase && git push

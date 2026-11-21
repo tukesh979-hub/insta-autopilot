@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+projects/*/footage/
+projects/*/out/
+projects/*/README_excerpt.md
+reports/
+recorder/node_modules/
+recorder/package-lock.json
+state/*.tmp
